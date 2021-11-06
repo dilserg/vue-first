@@ -5,6 +5,7 @@ export default {
     usersList: [],
     searchString: "",
     currentUser: {},
+    isLoading: false,
   },
   mutations: {
     setUsers: (state, payload) => {
@@ -15,6 +16,9 @@ export default {
     },
     setUser: (state, payload) => {
       state.currentUser = payload;
+    },
+    setIsLoading: (state, payload) => {
+      state.isLoading = payload;
     },
   },
   getters: {
@@ -34,6 +38,8 @@ export default {
       });
     },
 
+    getIsLoading: (state) => state.isLoading,
+
     getCurrentUser: (state) => {
       return state.currentUser;
     },
@@ -45,11 +51,14 @@ export default {
       );
       context.commit("setUsers", response.data);
     },
+
     fetchUser: async (context, id) => {
+      context.commit("setIsLoading", true);
       const response = await axios.get(
         "https://jsonplaceholder.typicode.com/users/" + id
       );
       context.commit("setUser", response.data);
+      context.commit("setIsLoading", false);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <v-col cols="4">
-    <v-card @click="openPhoto">
+    <v-card @click="openPhoto" outlined>
       <v-card-title>{{ photo.title }}</v-card-title>
       <v-card-text>
         <v-img class="photo" width="200" height="200" :src="photo.url" />
